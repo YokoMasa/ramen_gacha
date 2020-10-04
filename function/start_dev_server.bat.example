@@ -1,0 +1,3 @@
+@echo off
+set GCP_KEY={your gcp key}
+functions-framework --target search_ramen --debug

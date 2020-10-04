@@ -2,3 +2,5 @@ function/include
 function/Lib
 function/Scripts
 function/pyvenv.cfg
+function/__pycache__
+function/start_dev_server.bat
