@@ -121,14 +121,15 @@ async function updateRamenListCache(coords) {
     var latlng = `${coords.latitude},${coords.longitude}` 
     console.log(`update: ${latlng}`)
 
+    /*
     var r = await axios({
         method: 'get',
         url: `${API_ENDPOINT}?latlng=${latlng}`,
         responseType: 'json',
     })
-
-    //CACHE_JSON = SAMPLE_JSON.results
     CACHE_JSON = r.data.results
+    */
+    CACHE_JSON = SAMPLE_JSON.results
     CACHE_COORDS = coords
 }
 
