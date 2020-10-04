@@ -117,19 +117,43 @@ const SAMPLE_JSON = {
     status: "OK"
 }
 
+function showRamen(ramenRestaurant) {
+    setTimeout(() => {
+        var url = `https://www.google.com/maps/search/?api=1&query=${ramenRestaurant.name}&query_place_id=${ramenRestaurant.place_id}`
+
+        var r = $('#ramen')
+        r.attr("href", url)
+
+        var title = $('#ramenTitle')
+        title.empty()
+        title.append(ramenRestaurant.name)
+
+        var rating = $('#ramenRating')
+        rating.empty()
+        rating.append(`★ ${ramenRestaurant.rating}`)
+
+        r.removeClass('invisible')    
+    }, 1000)
+}
+
+function hideRamen() {
+    var r = $('#ramen')
+    r.addClass('invisible')
+    r.attr('href', '')
+}
+
 async function updateRamenListCache(coords) {
     var latlng = `${coords.latitude},${coords.longitude}` 
     console.log(`update: ${latlng}`)
 
-    /*
     var r = await axios({
         method: 'get',
         url: `${API_ENDPOINT}?latlng=${latlng}`,
         responseType: 'json',
     })
     CACHE_JSON = r.data.results
-    */
-    CACHE_JSON = SAMPLE_JSON.results
+    
+    //CACHE_JSON = SAMPLE_JSON.results
     CACHE_COORDS = coords
 }
 
@@ -155,7 +179,7 @@ async function showRamenRestaurant(geolocationPosition) {
         } else {
             var index = Math.floor(Math.random() * CACHE_JSON.length)
             var ramenRestaurant = CACHE_JSON[index]
-            alert(ramenRestaurant.name)
+            showRamen(ramenRestaurant)
         }
     } catch (error) {
         showError(error)
@@ -171,5 +195,6 @@ $(document).ready(() => {
     const button = $('#gachaButton')
     button.on('click', (e) => {
         navigator.geolocation.getCurrentPosition(showRamenRestaurant, showError)
+        hideRamen()
     })
 })

@@ -3,13 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
     <title>ラーメン屋ガチャ</title>
 </head>
 <body>
 <script src="js/bundle.js"></script>
-<button id="gachaButton">おしてね</button>
-<div id="ramenWrapper">
-
+<div class="wrapper">
+    <div>
+        <a id="ramen" target="_blank" class="invisible">
+            <span id="ramenTitle"></span>
+            <span id="ramenRating"></span>
+        </a>
+        <button id="gachaButton">おしてね</button>
+    </div>
 </div>
 </body>
 </html>
