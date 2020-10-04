@@ -5,10 +5,10 @@ module.exports = {
   entry: ['@babel/polyfill', './src/js/app.js'],
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'public/js')
+    path: path.join(__dirname, 'docs/js')
   },
   devServer: {
-    contentBase: './public',
+    contentBase: './docs',
     publicPath: '/js/',
     overlay: true
   },
