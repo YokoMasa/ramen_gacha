@@ -186,7 +186,7 @@ async function showRamenRestaurant(geolocationPosition) {
         }
 
         if (CACHE_JSON.length === 0) {
-            alert("このエリアにラーメン屋が見つかりませんでした")
+            showError("このエリアにラーメン屋が見つかりませんでした")
         } else {
             var index = Math.floor(Math.random() * CACHE_JSON.length)
             var ramenRestaurant = CACHE_JSON[index]
@@ -197,9 +197,10 @@ async function showRamenRestaurant(geolocationPosition) {
     }
 }
 
-function showError(e) {
-    console.log(e)
-    alert("エラーが発生しました")
+function showError(message) {
+    alert(message)
+    var loader = $('.loader')
+    loader.addClass('invisible')
     clickable = true
 }
 
@@ -208,7 +209,7 @@ $(document).ready(() => {
     button.on('click', (e) => {
         if (clickable) {
             clickable = false
-            navigator.geolocation.getCurrentPosition(showRamenRestaurant, showError)
+            navigator.geolocation.getCurrentPosition(showRamenRestaurant, e => { showError('位置情報が取得できません') })
             hideRamen()
             console.log('click')
         }
