@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: 'Noto Serif JP', serif;
+    background: #fffceb;
 }
 
 .invisible {
@@ -20,6 +21,7 @@ body {
     width: 100vw;
     height: 60px;
     font-size: 20pt;
+    background: #fffceb;
 }
 
 .wrapper {

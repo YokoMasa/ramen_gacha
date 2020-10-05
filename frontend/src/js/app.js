@@ -156,15 +156,15 @@ function hideRamen() {
 async function updateRamenListCache(coords) {
     var latlng = `${coords.latitude},${coords.longitude}` 
     console.log(`update: ${latlng}`)
-    
+    /*
     var r = await axios({
         method: 'get',
         url: `${API_ENDPOINT}?latlng=${latlng}`,
         responseType: 'json',
     })
     CACHE_JSON = r.data.results
-    
-    // CACHE_JSON = SAMPLE_JSON.results
+    */
+    CACHE_JSON = SAMPLE_JSON.results
     CACHE_COORDS = coords
 }
 
@@ -172,7 +172,8 @@ function isCacheCoordsCloseToCoords(coords) {
     if (CACHE_COORDS) {
         var latDelta = Math.abs(CACHE_COORDS.latitude - coords.latitude)
         var lngDelta = Math.abs(CACHE_COORDS.longitude - coords.longitude)
-        return latDelta < 1500 && lngDelta < 1500
+        console.log(`cache delta: ${latDelta},${lngDelta}`)
+        return latDelta < 0.0015 && lngDelta < 0.0015
     } else {
         return false
     }
@@ -211,7 +212,6 @@ $(document).ready(() => {
             clickable = false
             navigator.geolocation.getCurrentPosition(showRamenRestaurant, e => { showError('位置情報が取得できません') })
             hideRamen()
-            console.log('click')
         }
     })
 })
