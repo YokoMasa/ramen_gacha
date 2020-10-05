@@ -117,12 +117,18 @@ const SAMPLE_JSON = {
     status: "OK"
 }
 
+let clickable = true
+
 function showRamen(ramenRestaurant) {
     setTimeout(() => {
+        var loader = $('.loader')
+        loader.addClass('invisible')
+
         var url = `https://www.google.com/maps/search/?api=1&query=${ramenRestaurant.name}&query_place_id=${ramenRestaurant.place_id}`
 
         var r = $('#ramen')
         r.attr("href", url)
+        r.attr('target', '_blank')
 
         var title = $('#ramenTitle')
         title.empty()
@@ -132,7 +138,8 @@ function showRamen(ramenRestaurant) {
         rating.empty()
         rating.append(`★ ${ramenRestaurant.rating}`)
 
-        r.removeClass('invisible')    
+        r.removeClass('invisible') 
+        clickable = true   
     }, 1000)
 }
 
@@ -140,12 +147,16 @@ function hideRamen() {
     var r = $('#ramen')
     r.addClass('invisible')
     r.attr('href', '')
+    r.attr('target', '')
+
+    var loader = $('.loader')
+    loader.removeClass('invisible')
 }
 
 async function updateRamenListCache(coords) {
     var latlng = `${coords.latitude},${coords.longitude}` 
     console.log(`update: ${latlng}`)
-
+    
     var r = await axios({
         method: 'get',
         url: `${API_ENDPOINT}?latlng=${latlng}`,
@@ -153,7 +164,7 @@ async function updateRamenListCache(coords) {
     })
     CACHE_JSON = r.data.results
     
-    //CACHE_JSON = SAMPLE_JSON.results
+    // CACHE_JSON = SAMPLE_JSON.results
     CACHE_COORDS = coords
 }
 
@@ -189,12 +200,17 @@ async function showRamenRestaurant(geolocationPosition) {
 function showError(e) {
     console.log(e)
     alert("エラーが発生しました")
+    clickable = true
 }
 
 $(document).ready(() => {
     const button = $('#gachaButton')
     button.on('click', (e) => {
-        navigator.geolocation.getCurrentPosition(showRamenRestaurant, showError)
-        hideRamen()
+        if (clickable) {
+            clickable = false
+            navigator.geolocation.getCurrentPosition(showRamenRestaurant, showError)
+            hideRamen()
+            console.log('click')
+        }
     })
 })
