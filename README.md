@@ -1,3 +1,6 @@
+## Url
+[https://ramen-gacha.netlify.app/](https://ramen-gacha.netlify.app/)
+
 ## function開発環境構築手順
 1. cloneしたフォルダで以下を実行  
 ```  
